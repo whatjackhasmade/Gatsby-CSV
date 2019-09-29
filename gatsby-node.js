@@ -10,26 +10,24 @@ exports.createPages = ({ graphql, actions }) => {
     `
       query AllPeople {
         allPeopleCsv {
-          edges {
-            node {
-              age
-              Country
-              First_Name
-              Last_Name
-            }
+          nodes {
+            Country
+            Last_Name
+            First_Name
+            age
           }
         }
       }
     `
   ).then(result => {
-    console.log(result)
+    console.log(result.data.allPeopleCsv.nodes)
 
     if (result.errors) {
       throw result.errors
     }
 
     // Create people  pages.
-    result.data.allPeopleCsv.edges.forEach(person => {
+    result.data.allPeopleCsv.nodes.forEach(person => {
       createPage({
         path: `${person.First_Name}-${person.Last_Name}`,
         component: peopleTemplate,
