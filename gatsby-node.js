@@ -28,7 +28,6 @@ exports.createPages = ({ graphql, actions }) => {
 
       createPage({
         path: slug,
-        slug,
         component: peopleTemplate,
         context: {
           ...person,
