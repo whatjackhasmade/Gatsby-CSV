@@ -10,10 +10,7 @@ export default () => (
       query AllPeople {
         allPeopleCsv {
           nodes {
-            Age
-            Country
-            FirstName
-            LastName
+            ...PeopleCsvFragment
           }
         }
       }
