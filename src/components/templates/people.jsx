@@ -3,8 +3,10 @@ import React from "react"
 import Header from "../header"
 import "../layout.css"
 
-const Layout = (props, { children }) => {
-  console.log(props)
+const Layout = props => {
+  const {
+    pageContext: { Age, Country, FirstName, LastName },
+  } = props
 
   return (
     <>
@@ -19,9 +21,10 @@ const Layout = (props, { children }) => {
       >
         <main>
           <h1>
-            {props.First_Name}
-            {props.Last_Name}
+            {FirstName} {LastName}
           </h1>
+          <p>Age: {Age}</p>
+          <p>Location: {Country}</p>
         </main>
         <footer>
           © {new Date().getFullYear()}, Built with
