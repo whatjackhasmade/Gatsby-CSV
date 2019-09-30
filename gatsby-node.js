@@ -26,6 +26,7 @@ exports.createPages = ({ graphql, actions }) => {
     result.data.allPeopleCsv.nodes.forEach(person => {
       createPage({
         path: `${person.First_Name}-${person.Last_Name}`,
+        slug: `${person.First_Name}-${person.Last_Name}`,
         component: peopleTemplate,
         context: {
           ...person,
