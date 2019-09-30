@@ -4,24 +4,20 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
   const peopleTemplate = path.resolve(`src/components/templates/people.jsx`)
 
-  console.log("CREATING")
-
   return graphql(
     `
       query AllPeople {
         allPeopleCsv {
           nodes {
+            Age
             Country
-            Last_Name
-            First_Name
-            age
+            FirstName
+            LastName
           }
         }
       }
     `
   ).then(result => {
-    console.log(result.data.allPeopleCsv.nodes)
-
     if (result.errors) {
       throw result.errors
     }

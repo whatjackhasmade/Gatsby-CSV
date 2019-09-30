@@ -1,21 +1,36 @@
 import React from "react"
-import { Link } from "gatsby"
+import { StaticQuery, graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
+export default () => (
+  <StaticQuery
+    query={graphql`
+      query AllPeople {
+        allPeopleCsv {
+          nodes {
+            Age
+            Country
+            FirstName
+            LastName
+          }
+        }
+      }
+    `}
+    render={data => <IndexPage data={data} />}
+  />
 )
 
-export default IndexPage
+const IndexPage = ({ data }) => (
+  <Layout>
+    <SEO title="Home" />
+    <h1>Using a CSV as a data source in Gatsby</h1>
+    {data.allPeopleCsv.nodes.length > 0 &&
+      data.allPeopleCsv.nodes.map(person => (
+        <Link to={`${person.FirstName}-${person.LastName}`}>
+          {person.FirstName}
+        </Link>
+      ))}
+  </Layout>
+)
